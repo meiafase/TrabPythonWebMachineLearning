@@ -7,23 +7,6 @@
 </head>
 <body>
     <h1>Dados do Arquivo CSV</h1>
-    <table border="1">
-        <thead>
-            <tr>
-                {% for header in data.0 %}
-                <th>{{ header }}</th>
-                {% endfor %}
-            </tr>
-        </thead>
-        <tbody>
-            {% for row in data|slice:"1:" %}
-            <tr>
-                {% for cell in row %}
-                <td>{{ cell }}</td>
-                {% endfor %}
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <img src="{{ graph_url }}" alt="Gráfico de Média de Jogadores por Plataforma">
 </body>
 </html>
