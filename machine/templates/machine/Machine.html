@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Machine Learning</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 80%;
+            max-width: 1200px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .left {
+            flex: 1;
+            padding-right: 20px;
+        }
+
+        .left img {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .right {
+            flex: 1;
+            padding-left: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-size: 16px;
+            color: #333;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        select, button {
+            width: 100%;
+            padding: 5px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        select {
+            background-color: #fff;
+            margin-bottom: 10px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: gray;
+        }
+
+        .btn-voltar {
+            width: 40%;
+            background-color: red;
+        }
+
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .left, .right {
+                flex: none;
+                width: 100%;
+                padding: 0;
+                margin-bottom: 20px;
+            }
+
+            .left img {
+                max-width: 100%;
+            }
+        }
+
+        /* Estilo para o campo input */
+        input[type="number"] {
+            width: 100%;
+            padding: 5px;
+            font-size: 16px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        /* Efeito de foco no campo input */
+        input[type="number"]:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        a {
+            color: white
+        }
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+
+        .radio-group label {
+            margin-bottom: 10px;
+        }
+
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="left">
+            {% if scatter_plot_url %}
+                <img src="{{ scatter_plot_url }}" alt="Scatter Plot" />
+            {% else %}
+                <p>Não foi possível gerar o gráfico.</p>
+            {% endif %}
+        </div>
+
+        <div class="right">
+            <form action="{% url 'machine' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+                <div class="form-group">
+                    <label for="">Escolha o Target</label>
+                    <div style="display: flex;">
+                        <input type="radio" id="opcao1" name="opcao" value="opcao1">
+                        <label>Recomendação</label>
+                        <input type="radio" id="opcao1" name="opcao" value="opcao1">
+                        <label>Avaliação</label>
+                        <input type="radio" id="opcao1" name="opcao" value="opcao1">
+                        <label>Estimativa player</label>
+                    </div><br>
+                    <label for="">Escolha as Features</label>
+                    <div style="display: flex;">
+                        <input type="checkbox" id="opcao1" name="opcoes" value="opcao1">
+                        <label for="opcao1">PlatformWindows</label>
+                        <input type="checkbox" id="opcao1" name="opcoes" value="opcao1">
+                        <label for="opcao1">PlatformLinux</label>
+                        <input type="checkbox" id="opcao1" name="opcoes" value="opcao1">
+                        <label for="opcao1">PlatformMac</label>
+                        <input type="checkbox" id="opcao1" name="opcoes" value="opcao1">
+                        <label for="opcao1">MetacriticRating</label>
+                        <input type="checkbox" id="opcao1" name="opcoes" value="opcao1">
+                        <label for="opcao1">RecommendationCount</label>
+                    </div><br>
+                    <label for="tarefa">Escolha uma opção:</label>
+                    <select id="tarefa" name="tarefa">
+                        <option value="Regressão">Regressão</option>
+                        <option value="Classificação">Classificação</option>
+                    </select>
+                    <label for="modelo">Escolha uma opção:</label>
+                    <select id="modelo" name="modelo">
+                        <option value="Gradient Boosting Regression">Gradient Boosting Regression</option>
+                        <option value="Random Forest Regression">Random Forest Regression</option>
+                        <option value="Decision Tree Regression">Decision Tree Regression</option>
+                        <option value="KNN Regression">KNN Regression</option>
+                    </select>
+                    <label for="numero">Profundidade Máxima (max_depth):</label>
+                    <input type="number" id="numero" name="max_depth" min="1" max="20" value="1">
+                    <label for="numero">Número de Vizinhos (n_neighbors):</label>
+                    <input type="number" id="numero" name="n_neighbors" min="1" max="20" value="1">
+                    <label for="numero">Número de Árvores (n_estimators):</label>
+                    <input type="number" id="numero" name="n_estimators" min="10" max="100" value="1">
+                    <label for="numero">Taxa de Aprendizado (learning_rate) em %:</label>
+                    <input type="number" id="numero" name="learning_rate" min="1" max="100" value="1">
+                </div>
+                <button type="submit">Enviar</button>
+
+            </form>
+            <button class="btn-voltar" ><a href="http://127.0.0.1:8000/home/upload/">Voltar aos gráficos</a></button>
+        </div>
+    </div>
+
+</body>
+</html>

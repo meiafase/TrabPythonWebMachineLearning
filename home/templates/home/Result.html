@@ -52,10 +52,39 @@
         .graph-container img:hover {
             transform: scale(1.05);
         }
+        .btn {
+            background: linear-gradient(45deg, #6a11cb, #2575fc); /* Gradiente de cor */
+            color: white; /* Cor do texto */
+            padding: 15px 40px; /* Tamanho do botão */
+            font-size: 18px; /* Tamanho da fonte */
+            border: none; /* Remove borda padrão */
+            border-radius: 30px; /* Bordas arredondadas */
+            cursor: pointer; /* Cursor de mão */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease; /* Transições suaves */
+        }
+
+        /* Efeito de hover (quando o mouse passa sobre o botão) */
+        .btn:hover {
+            transform: translateY(-5px); /* Botão "sobe" ao passar o mouse */
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2); /* Aumenta a sombra */
+            background: linear-gradient(45deg, #2575fc, #6a11cb); /* Inverte o gradiente */
+        }
+
+        /* Efeito de click (quando o botão é pressionado) */
+        .btn:active {
+            transform: translateY(2px); /* Efeito de "pressionar" o botão */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra reduzida */
+        }
+
+        a {
+            color: white
+        }
     </style>
 </head>
 <body>
     <h1>Gráficos Gerados</h1>
+    <button class="btn"><a href="http://127.0.0.1:8000/machine/">Ver Predições</a></button>
 
     {% if error %}
         <p>{{ error }}</p>

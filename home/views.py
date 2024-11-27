@@ -119,5 +119,22 @@ def upload(request):
 
         except Exception as e:
             return render(request, 'home/Result.html', {'error': f'Erro ao processar o arquivo: {str(e)}'})
+        
+    graph_urls = []
+    fs = FileSystemStorage(location='media')
 
-    return render(request, 'home/Upload.html')
+    graph_filename_three = 'correlation_games_players.jpg'
+    graph_path_three = os.path.join(fs.location, graph_filename_three)
+    graph_urls.append(fs.url(graph_filename_three))
+
+    graph_filename_three = 'contagem_jogador.jpg'
+    graph_path_three = os.path.join(fs.location, graph_filename_three)
+    graph_urls.append(fs.url(graph_filename_three))
+
+    graph_filename_three = 'platform_average_players.jpg'
+    graph_path_three = os.path.join(fs.location, graph_filename_three)
+    graph_urls.append(fs.url(graph_filename_three))
+
+    return render(request, 'home/Result.html', {
+                'graph_urls': graph_urls
+            })
