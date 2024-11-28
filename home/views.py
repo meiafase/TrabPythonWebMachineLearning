@@ -114,7 +114,8 @@ def upload(request):
             graph_urls.append(fs.url(graph_filename_three))
 
             return render(request, 'home/Result.html', {
-                'graph_urls': graph_urls
+                'graph_urls': graph_urls,
+                'path': file_path,
             })
 
         except Exception as e:
@@ -136,5 +137,6 @@ def upload(request):
     graph_urls.append(fs.url(graph_filename_three))
 
     return render(request, 'home/Result.html', {
-                'graph_urls': graph_urls
+                'graph_urls': graph_urls,
+                
             })

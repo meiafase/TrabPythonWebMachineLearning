@@ -155,7 +155,7 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             width: 600px;
             max-height: 80vh;  
-            overflow-y: auto;  /
+            overflow-y: auto;  
             word-wrap: break-word; 
         }
         
@@ -203,18 +203,18 @@
     
 
         <div class="right">
-            <form action="{% url 'machine' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+            <form action="{% url 'machine' path=path %}" method="post" enctype="multipart/form-data">{% csrf_token %}
                 <div class="form-group">
                 <label for="">Escolha o Target</label>
             <div style="display: flex;">
-                <input type="radio" id="recomendacao" name="target" value="Recomendacao">
-                <label for="recomendacao">Recomendação</label>
+                <input type="radio" id="RecommendationCount" name="target" value="RecommendationCount">
+                <label for="RecommendationCount">RecommendationCount</label>
 
-                <input type="radio" id="avaliacao" name="target" value="Avaliacao">
-                <label for="avaliacao">Avaliação</label>
+                <input type="radio" id="MetacriticRating" name="target" value="MetacriticRating">
+                <label for="MetacriticRating">MetacriticRating</label>
 
-                <input type="radio" id="estimativa_player" name="target" value="EstimativaPlayer">
-                <label for="estimativa_player">Estimativa player</label>
+                <input type="radio" id="SteamSpyPlayersEstimate" name="target" value="SteamSpyPlayersEstimate">
+                <label for="SteamSpyPlayersEstimate">SteamSpyPlayersEstimate</label>
             </div><br>
 
             <label for="">Escolha as Features</label>

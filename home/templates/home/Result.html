@@ -84,7 +84,7 @@
 </head>
 <body>
     <h1>Gráficos Gerados</h1>
-    <button class="btn"><a href="http://127.0.0.1:8000/machine/">Ver Predições</a></button>
+    <button class="btn"><a href="{% url 'machine' path=path %}">Ver Predições</a></button>
 
     {% if error %}
         <p>{{ error }}</p>
