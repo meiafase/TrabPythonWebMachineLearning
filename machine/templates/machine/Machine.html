@@ -72,17 +72,22 @@
         }
 
         button {
+            
             background-color: #4CAF50;
             color: white;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            width: 40%
         }
 
         button:hover {
+            
+            margin-top: 20px;
             background-color: gray;
         }
 
         .btn-voltar {
+        
             width: 40%;
             background-color: red;
         }
@@ -140,43 +145,95 @@
         input[type="radio"] {
             margin-right: 10px;
         }
+        .evaluation {
+            position: left;
+            top: 20px;
+            left: 20px;  
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 600px;
+            max-height: 80vh;  
+            overflow-y: auto;  /
+            word-wrap: break-word; 
+        }
+        
+        .evaluation h3 {
+            color: #4CAF50;
+            font-size: 24px;
+        }
+        
+        .evaluation p {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        
+        .evaluation strong {
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .evaluation-text h4 {
+            color: #333;
+            font-size: 20px;
+        }
+        
+        .evaluation-text p {
+            font-size: 16px;
+            line-height: 1.5;
+            color: #555;
+        }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="left">
-            {% if scatter_plot_url %}
-                <img src="{{ scatter_plot_url }}" alt="Scatter Plot" />
-            {% else %}
-                <p>Não foi possível gerar o gráfico.</p>
-            {% endif %}
+    <div class="evaluation">
+        
+            <h3>Métricas de Avaliação</h3>
+            <p><strong>Erro Médio Quadrático (MSE):</strong> {{ mse }}</p>
+            <p><strong>Erro Médio Absoluto (MAE):</strong> {{ mae }}</p>
+            <p><strong>Coeficiente de Determinação (R²):</strong> {{ r2 }}</p>
+
+        <div class="evaluation-text">
+            <h4>Explicação:</h4>
+            <p>{{ texto_explicativo }}</p>
         </div>
+    </div>
+    
 
         <div class="right">
             <form action="{% url 'machine' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
                 <div class="form-group">
-                    <label for="">Escolha o Target</label>
-                    <div style="display: flex;">
-                        <input type="radio" id="opcao1" name="opcao" value="opcao1">
-                        <label>Recomendação</label>
-                        <input type="radio" id="opcao1" name="opcao" value="opcao1">
-                        <label>Avaliação</label>
-                        <input type="radio" id="opcao1" name="opcao" value="opcao1">
-                        <label>Estimativa player</label>
-                    </div><br>
-                    <label for="">Escolha as Features</label>
-                    <div style="display: flex;">
-                        <input type="checkbox" id="opcao1" name="opcoes" value="opcao1">
-                        <label for="opcao1">PlatformWindows</label>
-                        <input type="checkbox" id="opcao1" name="opcoes" value="opcao1">
-                        <label for="opcao1">PlatformLinux</label>
-                        <input type="checkbox" id="opcao1" name="opcoes" value="opcao1">
-                        <label for="opcao1">PlatformMac</label>
-                        <input type="checkbox" id="opcao1" name="opcoes" value="opcao1">
-                        <label for="opcao1">MetacriticRating</label>
-                        <input type="checkbox" id="opcao1" name="opcoes" value="opcao1">
-                        <label for="opcao1">RecommendationCount</label>
+                <label for="">Escolha o Target</label>
+            <div style="display: flex;">
+                <input type="radio" id="recomendacao" name="target" value="Recomendacao">
+                <label for="recomendacao">Recomendação</label>
+
+                <input type="radio" id="avaliacao" name="target" value="Avaliacao">
+                <label for="avaliacao">Avaliação</label>
+
+                <input type="radio" id="estimativa_player" name="target" value="EstimativaPlayer">
+                <label for="estimativa_player">Estimativa player</label>
+            </div><br>
+
+            <label for="">Escolha as Features</label>
+            <div style="display: flex;">
+                <input type="checkbox" id="platform_windows" name="features" value="PlatformWindows">
+                <label for="platform_windows">PlatformWindows</label>
+
+                <input type="checkbox" id="platform_linux" name="features" value="PlatformLinux">
+                <label for="platform_linux">PlatformLinux</label>
+
+                <input type="checkbox" id="platform_mac" name="features" value="PlatformMac">
+                <label for="platform_mac">PlatformMac</label>
+
+                <input type="checkbox" id="metacritic_rating" name="features" value="MetacriticRating">
+                <label for="metacritic_rating">MetacriticRating</label>
+
+                <input type="checkbox" id="recommendation_count" name="features" value="RecommendationCount">
+                <label for="recommendation_count">RecommendationCount</label>
+    </div>
                     </div><br>
                     <label for="tarefa">Escolha uma opção:</label>
                     <select id="tarefa" name="tarefa">
@@ -198,11 +255,12 @@
                     <input type="number" id="numero" name="n_estimators" min="10" max="100" value="1">
                     <label for="numero">Taxa de Aprendizado (learning_rate) em %:</label>
                     <input type="number" id="numero" name="learning_rate" min="1" max="100" value="1">
-                </div>
-                <button type="submit">Enviar</button>
 
+                <button type="submit">Enviar</button>
+                <button class="btn-voltar" ><a href="http://127.0.0.1:8000/home/upload/">Voltar aos gráficos</a></button>
+            </div>
             </form>
-            <button class="btn-voltar" ><a href="http://127.0.0.1:8000/home/upload/">Voltar aos gráficos</a></button>
+            
         </div>
     </div>
 
