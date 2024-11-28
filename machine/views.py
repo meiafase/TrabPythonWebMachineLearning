@@ -91,15 +91,14 @@ def machine(request):
             Quanto menor o MSE, melhor o modelo. 
             O coeficiente de determinação R² foi de {r2:.2f} o que significa que {r2*100:.2f}% da variabilidade dos dados pode ser explicada pelo modelo.
             """
-            
+
             return render(request, 'machine/Machine.html', {
                 "mse": mse,
                 "mae": mae,
                 "r2": r2,
                 "texto_explicativo": texto_explicativo
             })
-
-
+        
         except Exception as e:
             return JsonResponse({"error": str(e)}, status=500)
     else:
