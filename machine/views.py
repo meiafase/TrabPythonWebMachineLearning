@@ -72,7 +72,8 @@ def machine(request):
                     return "Modelo não suportado para classificação.", None
             else:
                 return "Tarefa não suportada.", None
-
+            
+            
             # Treina o modelo
             model.fit(X_train, y_train)
 
