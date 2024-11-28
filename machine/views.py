@@ -73,6 +73,7 @@ def machine(request):
             else:
                 return "Tarefa não suportada.", None
             
+            
             # Treina o modelo
             model.fit(X_train, y_train)
 
