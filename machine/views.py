@@ -9,6 +9,7 @@ from sklearn.tree import DecisionTreeRegressor, DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsRegressor, KNeighborsClassifier
 from sklearn.neighbors import KNeighborsRegressor
 from sklearn.datasets import make_regression
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix, roc_curve, auc
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 import plotly.express as px
@@ -38,7 +39,6 @@ def machine(request, path):
             n_neighbors = int(request.POST.get('n_neighbors'))
             n_estimators = int(request.POST.get('n_estimators'))
             learning_rate = float(request.POST.get('learning_rate')) / 100
-            print(learning_rate)
 
             # Dividir os dados em treino e teste
             X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=learning_rate, random_state=42)
@@ -54,6 +54,26 @@ def machine(request, path):
                     model = KNeighborsRegressor(n_neighbors=n_neighbors)
                 else:
                     return "Modelo não suportado para regressão.", None
+
+                # Treina o modelo
+                model.fit(X_train, y_train)
+
+                # Faz previsões
+                y_pred = model.predict(X_test)
+
+                # Calcular métricas de avaliação
+                mse = mean_squared_error(y_test, y_pred)
+                mae = mean_absolute_error(y_test, y_pred)
+                r2 = r2_score(y_test, y_pred)
+                
+                texto_explicativo = f"""
+                O modelo selecionado foi o {modelo} para a tarefa de {tarefa}. 
+                O target escolhido foi {y_column} e as features selecionadas foram {', '.join(X_columns)}.
+                O erro médio quadrático (MSE) foi de {mse:.2f}, o que indica quão bem o modelo se ajusta aos dados. 
+                Quanto menor o MSE, melhor o modelo. 
+                O coeficiente de determinação R² foi de {r2:.2f} o que significa que {r2*100:.2f}% da variabilidade dos dados pode ser explicada pelo modelo.
+                """
+
             elif tarefa == "Classificação":
                 if modelo == "Random Forest Regression":
                     model = RandomForestClassifier(n_estimators=n_estimators, max_depth=max_depth, random_state=42)
@@ -63,36 +83,46 @@ def machine(request, path):
                     model = KNeighborsClassifier(n_neighbors=n_neighbors)
                 else:
                     return "Modelo não suportado para classificação.", None
+                
+                model.fit(X_train, y_train)
+
+                # Fazendo previsões
+                y_pred = model.predict(X_test)
+
+                # Avaliando o desempenho do modelo
+                accuracy = accuracy_score(y_test, y_pred)
+                precision = precision_score(y_test, y_pred, average="weighted")
+                recall = recall_score(y_test, y_pred,average="weighted")
+                f1 = f1_score(y_test, y_pred, average="weighted")
+
+                # Exibindo os resultados
+                print(f'Acurácia: {accuracy:.2f}')
+                print(f'Precisão: {precision:.2f}')
+                print(f'Revocação: {recall:.2f}')
+                print(f'F1-Score: {f1:.2f}')
             else:
                 return "Tarefa não suportada.", None
             
             
-            # Treina o modelo
-            model.fit(X_train, y_train)
 
-            # Faz previsões
-            y_pred = model.predict(X_test)
-
-            # Calcular métricas de avaliação
-            mse = mean_squared_error(y_test, y_pred)
-            mae = mean_absolute_error(y_test, y_pred)
-            r2 = r2_score(y_test, y_pred)
-            
-            texto_explicativo = f"""
-            O modelo selecionado foi o {modelo} para a tarefa de {tarefa}. 
-            O target escolhido foi {y_column} e as features selecionadas foram {', '.join(X_columns)}.
-            O erro médio quadrático (MSE) foi de {mse:.2f}, o que indica quão bem o modelo se ajusta aos dados. 
-            Quanto menor o MSE, melhor o modelo. 
-            O coeficiente de determinação R² foi de {r2:.2f} o que significa que {r2*100:.2f}% da variabilidade dos dados pode ser explicada pelo modelo.
-            """
-
-            return render(request, 'machine/Machine.html', {
-                "mse": mse,
-                "mae": mae,
-                "r2": r2,
-                "texto_explicativo": texto_explicativo,
-                "path": path
-            })
+            if tarefa == 'Classificação':
+                return render(request, 'machine/Machine.html', {
+                    "tarefa": "Classificação",
+                    "accuracy": f"{accuracy:.2f}",  # Usando f-string para formatar o valor de accuracy
+                    "precision": f"{precision:.2f}",  # Formatando precision
+                    "recall": f"{recall:.2f}",  # Formatando recall
+                    "f": f"{f1:.2f}",  # Formatando f1-score
+                    "path": path
+                })
+            else:
+                return render(request, 'machine/Machine.html', {
+                    "tarefa": "Regressão",
+                    "mse": mse,
+                    "mae": mae,
+                    "r2": r2,
+                    "texto_explicativo": texto_explicativo,
+                    "path": path
+                })
         
         except Exception as e:
             return JsonResponse({"error": str(e)}, status=500)

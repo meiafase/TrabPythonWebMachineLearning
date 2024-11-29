@@ -13,40 +13,40 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
         }
 
         .container {
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
-            width: 80%;
+            width: 90%;
             max-width: 1200px;
             background-color: #fff;
             padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
         .evaluation {
-            background-color: #f9f9f9;
+            background-color: #fff;
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             width: 100%;
-            max-width: 800px;
+            max-width: 900px;
             margin-bottom: 30px;
         }
 
         .evaluation h3 {
             color: #4CAF50;
-            font-size: 24px;
+            font-size: 26px;
+            margin-bottom: 15px;
         }
 
         .evaluation p {
             font-size: 18px;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         .evaluation strong {
@@ -57,35 +57,36 @@
         .evaluation-text h4 {
             color: #333;
             font-size: 20px;
+            margin-bottom: 15px;
         }
 
         .evaluation-text p {
             font-size: 16px;
-            line-height: 1.5;
+            line-height: 1.6;
             color: #555;
         }
 
         .form-group {
-            margin-bottom: 15px;
             width: 100%;
+            margin-top: 20px;
         }
 
         label {
             font-size: 16px;
             color: #333;
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
         }
 
-        select, button, input[type="number"] {
+        select, input[type="number"], button {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             font-size: 16px;
             border: 2px solid #ddd;
             border-radius: 5px;
             outline: none;
+            margin-bottom: 20px;
             box-sizing: border-box;
-            margin-bottom: 10px;
         }
 
         select, input[type="number"] {
@@ -97,55 +98,43 @@
             color: white;
             cursor: pointer;
             transition: background-color 0.3s ease;
-            width: 48%;
-            margin-top: 10px;
-            margin-right: 4%;
         }
 
         button:hover {
-            background-color: gray;
+            background-color: #45a049;
         }
 
         .btn-voltar {
             background-color: red;
-            width: 48%;
-            margin-top: 10px;
-            margin-left: 4%;
-        }
-
-        .btn-voltar a {
             color: white;
-            text-decoration: none;
-            display: block;
             text-align: center;
+            display: block;
+            padding: 12px;
+            border-radius: 5px;
+            margin-top: 15px;
+            text-decoration: none;
         }
 
-        .radio-group {
+        .btn-voltar:hover {
+            background-color: darkred;
+        }
+
+        .radio-group, .checkbox-group {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 15px;
             margin-bottom: 20px;
         }
 
-        .radio-group label {
-            margin-bottom: 10px;
-        }
-
-        input[type="radio"] {
-            margin-right: 5px;
-        }
-
-        .checkbox-group {
+        .radio-group div, .checkbox-group div {
             display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 20px;
+            align-items: center;
+            gap: 8px;
+            font-size: 16px;
         }
 
-        .checkbox-group label {
-            width: calc(33.33% - 10px);
-            font-size: 14px;
-            margin-bottom: 10px;
+        input[type="radio"], input[type="checkbox"] {
+            margin-right: 8px;
         }
 
         @media (max-width: 768px) {
@@ -155,32 +144,14 @@
 
             .evaluation {
                 width: 100%;
-                margin-bottom: 20px;
             }
 
-            .form-group label {
-                font-size: 14px;
-            }
-
-            button {
+            button, .btn-voltar {
                 width: 100%;
-                margin-right: 0;
-                margin-top: 10px;
-            }
-
-            .btn-voltar {
-                width: 100%;
-                margin-left: 0;
-                margin-top: 10px;
             }
 
             .radio-group, .checkbox-group {
                 flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .checkbox-group label {
-                width: 100%;
             }
         }
     </style>
@@ -188,24 +159,37 @@
 <body>
 
     <div class="container">
-        <!-- Avaliação de Resultados -->
-        <div class="evaluation">
-            <h3>Métricas de Avaliação</h3>
-            <p><strong>Erro Médio Quadrático (MSE):</strong> {{ mse }}</p>
-            <p><strong>Erro Médio Absoluto (MAE):</strong> {{ mae }}</p>
-            <p><strong>Coeficiente de Determinação (R²):</strong> {{ r2 }}</p>
-
-            <div class="evaluation-text">
-                <h4>Explicação:</h4>
-                <p>{{ texto_explicativo }}</p>
+        {% if tarefa == 'Classificação' %}
+            <div class="evaluation">
+                <h3>Métricas de Avaliação</h3>
+                <p><strong>Acurácia:</strong> {{ accuracy }}</p>
+                <p><strong>Precisão:</strong> {{ precision }}</p>
+                <p><strong>Revocação:</strong> {{ recall }}</p>
+                <p><strong>F1-Score:</strong> {{ f }}</p>
             </div>
-        </div>
+        {% elif tarefa == 'Regressão' %}
+            <div class="evaluation">
+                <h3>Métricas de Avaliação</h3>
+                <p><strong>Erro Médio Quadrático (MSE):</strong> {{ mse }}</p>
+                <p><strong>Erro Médio Absoluto (MAE):</strong> {{ mae }}</p>
+                <p><strong>Coeficiente de Determinação (R²):</strong> {{ r2 }}</p>
+
+                <div class="evaluation-text">
+                    <h4>Explicação:</h4>
+                    <p>{{ texto_explicativo }}</p>
+                </div>
+            </div>
+        {% else %}
+            <div class="evaluation">
+                <h3>Métricas de Avaliação</h3>
+            </div>
+        {% endif %}
 
         <!-- Formulário -->
         <div class="form-group">
             <form action="{% url 'machine' path=path %}" method="post" enctype="multipart/form-data">{% csrf_token %}
                 <!-- Escolher Target -->
-                <label for="">Escolha o Target</label>
+                <label for="target">Escolha o Target</label>
                 <div class="radio-group">
                     <div>
                         <input type="radio" id="RecommendationCount" name="target" value="RecommendationCount">
@@ -218,7 +202,7 @@
                 </div>
 
                 <!-- Escolher Features -->
-                <label for="">Escolha as Features</label>
+                <label for="features">Escolha as Features</label>
                 <div class="checkbox-group">
                     <div>
                         <input type="checkbox" id="PriceInitial" name="features" value="PriceInitial">
@@ -294,21 +278,20 @@
                 </select>
 
                 <!-- Parâmetros de Modelo -->
-                <label for="numero">Profundidade Máxima (max_depth):</label>
-                <input type="number" id="numero" name="max_depth" min="1" max="20" value="1">
+                <label for="max_depth">Profundidade Máxima (max_depth):</label>
+                <input type="number" id="max_depth" name="max_depth" min="1" max="20" value="1">
 
-                <label for="numero">Número de Vizinhos (n_neighbors):</label>
-                <input type="number" id="numero" name="n_neighbors" min="0" max="20" value="1">
+                <label for="n_neighbors">Número de Vizinhos (n_neighbors):</label>
+                <input type="number" id="n_neighbors" name="n_neighbors" min="0" max="20" value="1">
 
-                <label for="numero">Número de Árvores (n_estimators):</label>
-                <input type="number" id="numero" name="n_estimators" min="10" max="10000" value="1">
+                <label for="n_estimators">Número de Árvores (n_estimators):</label>
+                <input type="number" id="n_estimators" name="n_estimators" min="10" max="10000" value="1">
 
-                <label for="numero">Taxa de Aprendizado (learning_rate) em %:</label>
-                <input type="number" id="numero" name="learning_rate" min="1" max="100" value="1">
+                <label for="learning_rate">Taxa de Aprendizado (learning_rate) em %:</label>
+                <input type="number" id="learning_rate" name="learning_rate" min="1" max="100" value="1">
 
                 <!-- Botões -->
                 <button type="submit">Enviar</button>
-                <button class="btn-voltar"><a href="http://127.0.0.1:8000/home/upload/">Voltar aos gráficos</a></button>
             </form>
         </div>
     </div>
