@@ -41,11 +41,11 @@ def machine(request, path):
             print(learning_rate)
 
             # Dividir os dados em treino e teste
-            X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+            X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=learning_rate, random_state=42)
 
             if tarefa == "Regressão":
                 if modelo == "Gradient Boosting Regression":
-                    model = GradientBoostingRegressor(n_estimators=n_estimators, learning_rate=learning_rate, max_depth=max_depth, random_state=42)
+                    model = GradientBoostingRegressor(n_estimators=n_estimators, learning_rate=learning_rate, max_depth=max_depth, min_samples_split=5, min_samples_leaf=5, subsample=0.9, random_state=42)
                 elif modelo == "Random Forest Regression":
                     model = RandomForestRegressor(n_estimators=n_estimators, max_depth=max_depth, random_state=42)
                 elif modelo == "Decision Tree Regression":

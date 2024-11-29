@@ -18,35 +18,56 @@
 
         .container {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            justify-content: center;
             align-items: center;
             width: 80%;
             max-width: 1200px;
             background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .evaluation {
+            background-color: #f9f9f9;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .left {
-            flex: 1;
-            padding-right: 20px;
-        }
-
-        .left img {
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             width: 100%;
-            max-width: 500px;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin-bottom: 30px;
         }
 
-        .right {
-            flex: 1;
-            padding-left: 20px;
+        .evaluation h3 {
+            color: #4CAF50;
+            font-size: 24px;
         }
+
+        .evaluation p {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .evaluation strong {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .evaluation-text h4 {
+            color: #333;
+            font-size: 20px;
+        }
+
+        .evaluation-text p {
+            font-size: 16px;
+            line-height: 1.5;
+            color: #555;
+        }
+
         .form-group {
             margin-bottom: 15px;
+            width: 100%;
         }
 
         label {
@@ -56,85 +77,53 @@
             margin-bottom: 5px;
         }
 
-        select, button {
+        select, button, input[type="number"] {
             width: 100%;
-            padding: 5px;
+            padding: 10px;
             font-size: 16px;
             border: 2px solid #ddd;
             border-radius: 5px;
             outline: none;
             box-sizing: border-box;
-        }
-
-        select {
-            background-color: #fff;
             margin-bottom: 10px;
         }
 
+        select, input[type="number"] {
+            background-color: #fff;
+        }
+
         button {
-            
             background-color: #4CAF50;
             color: white;
             cursor: pointer;
             transition: background-color 0.3s ease;
-            width: 40%
+            width: 48%;
+            margin-top: 10px;
+            margin-right: 4%;
         }
 
         button:hover {
-            
-            margin-top: 20px;
             background-color: gray;
         }
 
         .btn-voltar {
-        
-            width: 40%;
             background-color: red;
+            width: 48%;
+            margin-top: 10px;
+            margin-left: 4%;
         }
 
-
-        @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .left, .right {
-                flex: none;
-                width: 100%;
-                padding: 0;
-                margin-bottom: 20px;
-            }
-
-            .left img {
-                max-width: 100%;
-            }
+        .btn-voltar a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            text-align: center;
         }
 
-        /* Estilo para o campo input */
-        input[type="number"] {
-            width: 100%;
-            padding: 5px;
-            font-size: 16px;
-            border: 2px solid #ccc;
-            border-radius: 5px;
-            background-color: #fff;
-            margin-bottom: 10px;
-            box-sizing: border-box;
-        }
-
-        /* Efeito de foco no campo input */
-        input[type="number"]:focus {
-            border-color: #007bff;
-            outline: none;
-        }
-
-        a {
-            color: white
-        }
         .radio-group {
             display: flex;
-            flex-direction: column;
+            flex-wrap: wrap;
+            gap: 10px;
             margin-bottom: 20px;
         }
 
@@ -143,124 +132,184 @@
         }
 
         input[type="radio"] {
-            margin-right: 10px;
+            margin-right: 5px;
         }
-        .evaluation {
-            position: left;
-            top: 20px;
-            left: 20px;  
-            background-color: #f9f9f9;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            width: 600px;
-            max-height: 80vh;  
-            overflow-y: auto;  
-            word-wrap: break-word; 
+
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
         }
-        
-        .evaluation h3 {
-            color: #4CAF50;
-            font-size: 24px;
-        }
-        
-        .evaluation p {
-            font-size: 18px;
+
+        .checkbox-group label {
+            width: calc(33.33% - 10px);
+            font-size: 14px;
             margin-bottom: 10px;
         }
-        
-        .evaluation strong {
-            font-weight: bold;
-            color: #333;
-        }
-        
-        .evaluation-text h4 {
-            color: #333;
-            font-size: 20px;
-        }
-        
-        .evaluation-text p {
-            font-size: 16px;
-            line-height: 1.5;
-            color: #555;
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            .evaluation {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+
+            .form-group label {
+                font-size: 14px;
+            }
+
+            button {
+                width: 100%;
+                margin-right: 0;
+                margin-top: 10px;
+            }
+
+            .btn-voltar {
+                width: 100%;
+                margin-left: 0;
+                margin-top: 10px;
+            }
+
+            .radio-group, .checkbox-group {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .checkbox-group label {
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="evaluation">
-        
+    <div class="container">
+        <!-- Avaliação de Resultados -->
+        <div class="evaluation">
             <h3>Métricas de Avaliação</h3>
             <p><strong>Erro Médio Quadrático (MSE):</strong> {{ mse }}</p>
             <p><strong>Erro Médio Absoluto (MAE):</strong> {{ mae }}</p>
             <p><strong>Coeficiente de Determinação (R²):</strong> {{ r2 }}</p>
 
-        <div class="evaluation-text">
-            <h4>Explicação:</h4>
-            <p>{{ texto_explicativo }}</p>
-        </div>
-    </div>
-    
-
-        <div class="right">
-            <form action="{% url 'machine' path=path %}" method="post" enctype="multipart/form-data">{% csrf_token %}
-                <div class="form-group">
-                <label for="">Escolha o Target</label>
-            <div style="display: flex;">
-                <input type="radio" id="RecommendationCount" name="target" value="RecommendationCount">
-                <label for="RecommendationCount">RecommendationCount</label>
-
-                <input type="radio" id="MetacriticRating" name="target" value="MetacriticRating">
-                <label for="MetacriticRating">MetacriticRating</label>
-
-                <input type="radio" id="SteamSpyPlayersEstimate" name="target" value="SteamSpyPlayersEstimate">
-                <label for="SteamSpyPlayersEstimate">SteamSpyPlayersEstimate</label>
-            </div><br>
-
-            <label for="">Escolha as Features</label>
-            <div style="display: flex;">
-                <input type="checkbox" id="platform_windows" name="features" value="PlatformWindows">
-                <label for="platform_windows">PlatformWindows</label>
-
-                <input type="checkbox" id="platform_linux" name="features" value="PlatformLinux">
-                <label for="platform_linux">PlatformLinux</label>
-
-                <input type="checkbox" id="platform_mac" name="features" value="PlatformMac">
-                <label for="platform_mac">PlatformMac</label>
-
-                <input type="checkbox" id="metacritic_rating" name="features" value="MetacriticRating">
-                <label for="metacritic_rating">MetacriticRating</label>
-
-                <input type="checkbox" id="recommendation_count" name="features" value="RecommendationCount">
-                <label for="recommendation_count">RecommendationCount</label>
-    </div>
-                    </div><br>
-                    <label for="tarefa">Escolha uma opção:</label>
-                    <select id="tarefa" name="tarefa">
-                        <option value="Regressão">Regressão</option>
-                        <option value="Classificação">Classificação</option>
-                    </select>
-                    <label for="modelo">Escolha uma opção:</label>
-                    <select id="modelo" name="modelo">
-                        <option value="Gradient Boosting Regression">Gradient Boosting Regression</option>
-                        <option value="Random Forest Regression">Random Forest Regression</option>
-                        <option value="Decision Tree Regression">Decision Tree Regression</option>
-                        <option value="KNN Regression">KNN Regression</option>
-                    </select>
-                    <label for="numero">Profundidade Máxima (max_depth):</label>
-                    <input type="number" id="numero" name="max_depth" min="1" max="20" value="1">
-                    <label for="numero">Número de Vizinhos (n_neighbors):</label>
-                    <input type="number" id="numero" name="n_neighbors" min="1" max="20" value="1">
-                    <label for="numero">Número de Árvores (n_estimators):</label>
-                    <input type="number" id="numero" name="n_estimators" min="10" max="100" value="1">
-                    <label for="numero">Taxa de Aprendizado (learning_rate) em %:</label>
-                    <input type="number" id="numero" name="learning_rate" min="1" max="100" value="1">
-
-                <button type="submit">Enviar</button>
-                <button class="btn-voltar" ><a href="http://127.0.0.1:8000/home/upload/">Voltar aos gráficos</a></button>
+            <div class="evaluation-text">
+                <h4>Explicação:</h4>
+                <p>{{ texto_explicativo }}</p>
             </div>
+        </div>
+
+        <!-- Formulário -->
+        <div class="form-group">
+            <form action="{% url 'machine' path=path %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+                <!-- Escolher Target -->
+                <label for="">Escolha o Target</label>
+                <div class="radio-group">
+                    <div>
+                        <input type="radio" id="RecommendationCount" name="target" value="RecommendationCount">
+                        <label for="RecommendationCount">RecommendationCount</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="MetacriticRating" name="target" value="MetacriticRating">
+                        <label for="MetacriticRating">MetacriticRating</label>
+                    </div>
+                </div>
+
+                <!-- Escolher Features -->
+                <label for="">Escolha as Features</label>
+                <div class="checkbox-group">
+                    <div>
+                        <input type="checkbox" id="PriceInitial" name="features" value="PriceInitial">
+                        <label for="PriceInitial">PriceInitial</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="PriceFinal" name="features" value="PriceFinal">
+                        <label for="PriceFinal">PriceFinal</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="DemoCount" name="features" value="DemoCount">
+                        <label for="DemoCount">DemoCount</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="ScreenshotCount" name="features" value="ScreenshotCount">
+                        <label for="ScreenshotCount">ScreenshotCount</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="SteamSpyOwners" name="features" value="SteamSpyOwners">
+                        <label for="SteamSpyOwners">SteamSpyOwners</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="SteamSpyPlayersEstimate" name="features" value="SteamSpyPlayersEstimate">
+                        <label for="SteamSpyPlayersEstimate">SteamSpyPlayersEstimate</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="PlatformWindows" name="features" value="PlatformWindows">
+                        <label for="PlatformWindows">PlatformWindows</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="PlatformLinux" name="features" value="PlatformLinux">
+                        <label for="PlatformLinux">PlatformLinux</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="PlatformMac" name="features" value="PlatformMac">
+                        <label for="PlatformMac">PlatformMac</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="IsFree" name="features" value="IsFree">
+                        <label for="IsFree">IsFree</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="GenreIsIndie" name="features" value="GenreIsIndie">
+                        <label for="GenreIsIndie">GenreIsIndie</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="GenreIsAction" name="features" value="GenreIsAction">
+                        <label for="GenreIsAction">GenreIsAction</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="CategorySinglePlayer" name="features" value="CategorySinglePlayer">
+                        <label for="CategorySinglePlayer">CategorySinglePlayer</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="CategoryMultiplayer" name="features" value="CategoryMultiplayer">
+                        <label for="CategoryMultiplayer">CategoryMultiplayer</label>
+                    </div>
+                </div>
+
+                <!-- Escolher Tarefa e Modelo -->
+                <label for="tarefa">Escolha uma opção:</label>
+                <select id="tarefa" name="tarefa">
+                    <option value="Regressão">Regressão</option>
+                    <option value="Classificação">Classificação</option>
+                </select>
+
+                <label for="modelo">Escolha um modelo:</label>
+                <select id="modelo" name="modelo">
+                    <option value="Gradient Boosting Regression">Gradient Boosting Regression</option>
+                    <option value="Random Forest Regression">Random Forest Regression</option>
+                    <option value="Decision Tree Regression">Decision Tree Regression</option>
+                    <option value="KNN Regression">KNN Regression</option>
+                </select>
+
+                <!-- Parâmetros de Modelo -->
+                <label for="numero">Profundidade Máxima (max_depth):</label>
+                <input type="number" id="numero" name="max_depth" min="1" max="20" value="1">
+
+                <label for="numero">Número de Vizinhos (n_neighbors):</label>
+                <input type="number" id="numero" name="n_neighbors" min="0" max="20" value="1">
+
+                <label for="numero">Número de Árvores (n_estimators):</label>
+                <input type="number" id="numero" name="n_estimators" min="10" max="10000" value="1">
+
+                <label for="numero">Taxa de Aprendizado (learning_rate) em %:</label>
+                <input type="number" id="numero" name="learning_rate" min="1" max="100" value="1">
+
+                <!-- Botões -->
+                <button type="submit">Enviar</button>
+                <button class="btn-voltar"><a href="http://127.0.0.1:8000/home/upload/">Voltar aos gráficos</a></button>
             </form>
-            
         </div>
     </div>
 
